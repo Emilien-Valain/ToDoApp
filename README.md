@@ -1,4 +1,4 @@
-# Projet React Benoît Vasseur | Emilien VALAIN
+# Projet React Benoît Vavasseur | Emilien VALAIN
 Fonctionnalités de la TODOAPP
 - état des tâches (prévue, active, complétée)
 - planification des tâches
