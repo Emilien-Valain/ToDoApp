@@ -2,7 +2,7 @@
 Fonctionnalités de la TODOAPP
 - état des tâches (prévue, active, complétée)
 - planification des tâches
-- catégorie
+- catégorie (travail, famille, etc.)
 - tâches récurrentes (jours, mois, années)
 - filtrage de l'affichage des tâches (selon l'état, la date...)
 
