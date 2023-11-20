@@ -1,29 +1,32 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 
 type Todo = {
+  id: string
   name: string
   done: boolean
 }
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([])
-  const [newTodo, setNewTodo] = useState<string>('')
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [newTodo, setNewTodo] = useState<string>('');
 
   function addTodo() {
-    setTodos([...todos, { name: newTodo, done: false }])
-    setNewTodo('')
+    setTodos([...todos, { id: uuidv4(), name: newTodo, done: false }]);
+    setNewTodo('');
   }
 
-  function toggleDone(index: number) {
-    setTodos(todos.map((todo, i) => i === index ? { ...todo, done: !todo.done } : todo))
+  function toggleDone(id: string) {
+    setTodos(todos.map((todo) => todo.id === id ? { ...todo, done: !todo.done } : todo));
   }
 
-  function removeTodo(index: number) {
-    setTodos(todos.filter((_, i) => i !== index))
+  function removeTodo(id: string) {
+    setTodos(todos.filter((todo) => todo.id !== id));
   }
 
-  const unfinishedTodos = todos.filter(todo => !todo.done)
-  const finishedTodos = todos.filter(todo => todo.done)
+  const unfinishedTodos = todos.filter(todo => !todo.done);
+  const finishedTodos = todos.filter(todo => todo.done);
 
   return (
     <>
@@ -49,11 +52,11 @@ function App() {
               <input
                 type="checkbox"
                 checked={todo.done}
-                onChange={() => toggleDone(index)}
+                onChange={() => toggleDone(todo.id)}
               />
               <span className="flex-grow">{todo.name}</span>
               <button
-                onClick={() => removeTodo(index)}
+                onClick={() => removeTodo(todo.id)}
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
                 Delete
@@ -68,11 +71,11 @@ function App() {
               <input
                 type="checkbox"
                 checked={todo.done}
-                onChange={() => toggleDone(index)}
+                onChange={() => toggleDone(todo.id)}
               />
               <span className="flex-grow">{todo.name}</span>
               <button
-                onClick={() => removeTodo(index)}
+                onClick={() => removeTodo(todo.id)}
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
                 Delete
