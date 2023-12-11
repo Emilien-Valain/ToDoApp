@@ -60,14 +60,36 @@ function App() {
       <AddTodoForm addTodo={addTodo} />
       <h2 className="text-2xl">Unfinished Todos</h2>
       <TodoList
-        todos={unfinishedTodos}
+        todos={unfinishedTodos.sort((a, b) => {
+          if (!a.dueDate && !b.dueDate) {
+            return 0;
+          }
+          if (!a.dueDate) {
+            return -1;
+          }
+          if (!b.dueDate) {
+            return 1;
+          }
+          return a.dueDate.getTime() - b.dueDate.getTime();
+        })}
         editTodo={editTodo}
         toggleDone={toggleDone}
         removeTodo={removeTodo}
       />
       <h2 className="text-2xl">Finished Todos</h2>
       <TodoList
-        todos={finishedTodos}
+        todos={finishedTodos.sort((a, b) => {
+          if (!a.dueDate && !b.dueDate) {
+            return 0;
+          }
+          if (!a.dueDate) {
+            return -1;
+          }
+          if (!b.dueDate) {
+            return 1;
+          }
+          return a.dueDate.getTime() - b.dueDate.getTime();
+        })}
         editTodo={editTodo}
         toggleDone={toggleDone}
         removeTodo={removeTodo}
