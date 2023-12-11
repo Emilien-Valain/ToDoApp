@@ -2,12 +2,15 @@
 Fonctionnalités de la TODOAPP
 - état des tâches (prévue, active, complétée)
 - planification des tâches
+- localstorage
 - tâches récurrentes (jours, mois, années)
 - filtrage de l'affichage des tâches (selon l'état, la date...)
 - notifications
 - nombres de tâches complétées dans la journée 
 - objectif de nombre de tâche et winstreak
 
+à voir :
+- sur mobile, swipe ou autre pour edit/supprimer
 
 # React + TypeScript + Vite
 

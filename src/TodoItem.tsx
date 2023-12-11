@@ -32,7 +32,14 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
           className="flex-1 mx-2 p-2 border border-gray-300 rounded"
         />
       ) : (
-        <span className={`flex-1 mx-2 ${todo.done ? "line-through" : ""}`}>{todo.name}</span>
+        <div className="flex-1 mx-2">
+          <span className={`${todo.done ? "line-through" : ""}`}>{todo.name}</span>
+          {todo.dueDate && (
+            <span className="text-sm text-gray-500 ml-2">
+              (Due: {todo.dueDate.toLocaleDateString()})
+            </span>
+          )}
+        </div>
       )}
       {isEditing ? (
         <>

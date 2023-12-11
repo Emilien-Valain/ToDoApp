@@ -7,9 +7,10 @@ import { Todo } from './types';
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  function addTodo(name: string) {
-    setTodos([...todos, { id: uuidv4(), name, done: false }]);
+  function addTodo(name: string, dueDate: Date) {
+    setTodos([...todos, { id: uuidv4(), name, done: false, dueDate }]);
   }
+  
 
   function toggleDone(id: string) {
     setTodos(todos.map(todo => todo.id === id ? { ...todo, done: !todo.done } : todo));
