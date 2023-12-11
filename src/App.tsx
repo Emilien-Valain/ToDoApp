@@ -1,28 +1,55 @@
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 import { Todo } from './types';
+import { db } from './firebase';
+import { ref, push, onValue, update, remove, set } from "firebase/database";
+import { useEffect } from 'react';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  function addTodo(name: string, dueDate: Date) {
-    setTodos([...todos, { id: uuidv4(), name, done: false, dueDate }]);
+
+  useEffect(() => {
+    const todosRef = ref(db, 'todos');
+    onValue(todosRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const loadedTodos = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key],
+          dueDate: data[key].dueDate ? new Date(data[key].dueDate) : null // Convertir en Date ou garder null
+        }));
+        setTodos(loadedTodos);
+      }
+    });
+  }, []);
+  
+  function addTodo(name: string, dueDate?: Date) {
+    const newTodoRef = push(ref(db, 'todos'));
+    set(newTodoRef, {
+      name, 
+      dueDate: dueDate ? dueDate.toISOString() : null,
+      done: false
+    });
   }
   
 
   function toggleDone(id: string) {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, done: !todo.done } : todo));
+    const todoRef = ref(db, `todos/${id}`);
+    update(todoRef, { done: !todos.find(todo => todo.id === id).done });
   }
-
+  
   function editTodo(id: string, newName: string) {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, name: newName } : todo));
+    const todoRef = ref(db, `todos/${id}`);
+    update(todoRef, { name: newName });
   }
-
+  
   function removeTodo(id: string) {
-    setTodos(todos.filter(todo => todo.id !== id));
+    const todoRef = ref(db, `todos/${id}`);
+    remove(todoRef);
   }
+  
 
   const unfinishedTodos = todos.filter(todo => !todo.done);
   const finishedTodos = todos.filter(todo => todo.done);

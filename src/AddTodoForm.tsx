@@ -10,11 +10,12 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addTodo(newTodo, new Date(dueDate));
+    const due = dueDate ? new Date(dueDate) : undefined;
+    addTodo(newTodo, due);
     setNewTodo('');
     setDueDate('');
   };
-
+  
   return (
     <form onSubmit={handleSubmit} className="flex justify-center mb-4">
       <input
