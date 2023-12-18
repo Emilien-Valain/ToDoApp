@@ -11,10 +11,6 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
   const [newTodo, setNewTodo] = useState('');
   const [dueDate, setDueDate] = useState(new Date()); // Nouvel état pour la date
 
-  // function onChange(nextValue: React.SetStateAction<Date>) {
-  //   setDueDate(nextValue);
-  // }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const due = dueDate ? new Date(dueDate) : undefined;

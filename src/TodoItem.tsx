@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { Todo } from './types';
-
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 interface TodoItemProps {
   todo: Todo;
   toggleDone: (id: string) => void;
-  editTodo: (id: string, newName: string) => void;
+  editTodo: (id: string, newName: string, newDate: Date | undefined) => void;
   removeTodo: (id: string) => void;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(todo.name);
+  const [editDueDate, setEditDueDate] = useState(todo.dueDate ? todo.dueDate : undefined); // Nouvel état pour la date
+
 
   const handleSave = () => {
-    editTodo(todo.id, editText);
+    editTodo(todo.id, editText, editDueDate);
     setIsEditing(false);
   };
 
@@ -26,11 +29,22 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
         className="form-checkbox h-5 w-5"
       />
       {isEditing ? (
+        <div>
         <input
           value={editText}
           onChange={e => setEditText(e.target.value)}
           className="flex-1 mx-2 p-2 border border-gray-300 rounded"
         />
+        
+        <DatePicker 
+        className="flex-1 mx-2 p-2 border border-gray-300 rounded"
+        dateFormat="dd/MM/yyyy"
+        selected={editDueDate}
+        // value={editDueDate}
+        onChange={(date: Date | null) => setEditDueDate(date)}  
+        minDate={new Date()}
+      />
+        </div>
       ) : (
         <div className="flex-1 mx-2">
           <span className={`${todo.done ? "line-through" : ""}`}>{todo.name}</span>

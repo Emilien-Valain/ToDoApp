@@ -40,9 +40,9 @@ function App() {
     update(todoRef, { done: !todos.find(todo => todo.id === id).done });
   }
   
-  function editTodo(id: string, newName: string) {
+  function editTodo(id: string, newName: string, newDate?: Date) {
     const todoRef = ref(db, `todos/${id}`);
-    update(todoRef, { name: newName });
+    update(todoRef, { name: newName, dueDate: newDate });
   }
   
   function removeTodo(id: string) {
