@@ -5,6 +5,7 @@ import { Todo } from './types';
 import { db } from './firebase';
 import { ref, push, onValue, update, remove, set } from "firebase/database";
 import { useEffect } from 'react';
+import TasksOTD from './TasksOTD';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -94,6 +95,7 @@ function App() {
         toggleDone={toggleDone}
         removeTodo={removeTodo}
       />
+      <TasksOTD finishedTodos={finishedTodos} />
     </div>
   );
 }
