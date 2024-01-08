@@ -74,7 +74,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
           </button>
         </div>
       ) : (
-        <div className="flex-1 mx-2" style={translateStyle}>
+        
+        <div className="flex justify-between items-center mx-2">
+        <div className="flex-1">
           <span className={`${todo.done ? "line-through" : ""}`}>{todo.name}</span>
           {todo.dueDate && (
             <span className="text-sm text-gray-500 ml-2">
@@ -82,6 +84,16 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
             </span>
           )}
         </div>
+        <div>
+          <button onClick={() => setIsEditing(true)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded ml-2 mr-2">
+            Edit
+          </button>
+          <button onClick={() => removeTodo(todo.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+            Delete
+          </button>
+        </div>
+      </div>
+      
       )}
     </div>
     </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from 'date-fns';
 
 interface AddTodoFormProps {
   addTodo: (name: string, dueDate: Date) => void;
@@ -9,33 +8,31 @@ interface AddTodoFormProps {
 
 const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
   const [newTodo, setNewTodo] = useState('');
-  const [dueDate, setDueDate] = useState(new Date()); // Nouvel état pour la date
+  const [dueDate, setDueDate] = useState(new Date());
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const due = dueDate ? new Date(dueDate) : undefined;
-    addTodo(newTodo, due);
+    addTodo(newTodo, dueDate);
     setNewTodo('');
-    // setDueDate();
   };
-  
+
   return (
-    <form onSubmit={handleSubmit} className="flex justify-center mb-4">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row justify-center items-center gap-2 mb-4">
       <input
+        type="text"
         value={newTodo}
         onChange={e => setNewTodo(e.target.value)}
-        className="flex-1 border border-gray-300 p-2 rounded-l"
+        className="flex-1 px-2 py-1 border border-gray-300 rounded-md"
         placeholder="Add a new task"
       />
       <DatePicker 
-        className="flex-1 border border-gray-300 p-2 rounded-l"
+        className="px-2 py-1 border border-gray-300 rounded-md"
         dateFormat="dd/MM/yyyy"
-        selected={dueDate} 
-        onChange={(date: React.SetStateAction<Date>) => setDueDate(date)} 
+        selected={dueDate}
+        onChange={(date: Date) => setDueDate(date)}
         minDate={new Date()}
       />
-      {/* <Calendar onChange={(value) => setDueDate(value as Date)} /> */}
-      <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-r">
+      <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded-md">
         Add Todo
       </button>
     </form>

@@ -8,6 +8,7 @@ Fonctionnalités de la TODOAPP
 - notifications
 - nombres de tâches complétées dans la journée 
 - objectif de nombre de tâche et winstreak
+- swipe à droite pour éditer la tâche et à gauche pour la supprimer
 
 à voir :
 - sur mobile, swipe ou autre pour edit/supprimer
