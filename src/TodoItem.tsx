@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Todo } from './types';
 import DatePicker from 'react-datepicker';
+import { useSwipeable } from 'react-swipeable';
 import "react-datepicker/dist/react-datepicker.css";
+
 interface TodoItemProps {
   todo: Todo;
   toggleDone: (id: string) => void;
@@ -12,16 +14,22 @@ interface TodoItemProps {
 const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(todo.name);
-  const [editDueDate, setEditDueDate] = useState(todo.dueDate ? todo.dueDate : undefined); // Nouvel état pour la date
-
+  const [editDueDate, setEditDueDate] = useState(todo.dueDate ? todo.dueDate : undefined);
 
   const handleSave = () => {
     editTodo(todo.id, editText, editDueDate);
     setIsEditing(false);
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setIsEditing(true),
+    onSwipedRight: () => removeTodo(todo.id),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
   return (
-    <div className="flex justify-between items-center bg-white p-3 rounded shadow mb-2">
+    <div {...handlers} className="flex justify-between items-center bg-white p-3 rounded shadow mb-2 transition duration-500 ease-in-out transform hover:-translate-x-1 hover:scale-110">
       <input
         type="checkbox"
         checked={todo.done}
@@ -30,13 +38,12 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
       />
       {isEditing ? (
         <div>
-        <input
-          value={editText}
-          onChange={e => setEditText(e.target.value)}
-          className="flex-1 mx-2 p-2 border border-gray-300 rounded"
-        />
-        
-        <DatePicker 
+          <input
+            value={editText}
+            onChange={e => setEditText(e.target.value)}
+            className="flex-1 mx-2 p-2 border border-gray-300 rounded"
+          />
+          <DatePicker 
         className="flex-1 mx-2 p-2 border border-gray-300 rounded"
         dateFormat="dd/MM/yyyy"
         selected={editDueDate}
