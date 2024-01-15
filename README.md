@@ -1,9 +1,9 @@
 # Projet React Benoît Vavasseur | Emilien VALAIN
 
 ## Installation
-npm install
-npm run dev
-http://localhost:5173/
+- npm install
+- npm run dev
+- http://localhost:5173/
 
 ## Fonctionnalités de la TODOAPP
 - état des tâches (active, complétée)
@@ -14,3 +14,9 @@ http://localhost:5173/
 - nombres de tâches complétées dans la journée 
 - swipe gauche/droite sur une tâche pour edit/supprimer
 - objectif de nombre de tâche
+
+## Axes d'amélioration 
+- Système de comptes
+- Reset des daily tasks (nécessité d'un backend)
+- Swipe plus intuitif
+
