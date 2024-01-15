@@ -115,6 +115,8 @@ function App() {
 
   return (
     <div className="flex flex-col items-center space-y-3">
+      <div id="root"></div>
+      <div id="root-portal"></div>
       <h1 className="text-4xl text-center">Todo App</h1>
       <AddTodoForm addTodo={addTodo} />
       <h2 className="text-2xl">Unfinished Todos</h2>

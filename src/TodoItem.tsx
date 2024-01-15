@@ -44,8 +44,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
   };
 
   return (
-    <div style={translateStyle}>
-    <div {...handlers} className="flex justify-between items-center bg-white p-3 rounded shadow mb-2 transition duration-500 ease-in-out">
+    <div style={translateStyle} className={isEditing ? "overflow-visible" : ""}>
+    <div {...handlers} className="flex justify-between items-center bg-white p-3 rounded shadow mb-2 transition duration-500 ease-in-out overflow-visible">
       <input
         type="checkbox"
         checked={todo.done}
@@ -60,11 +60,15 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
             className="flex-1 mx-2 p-2 border border-gray-300 rounded"
           />
           <DatePicker 
-            className="flex-1 mx-2 p-2 border border-gray-300 rounded"
+            className="flex-1 mx-2 p-2 border border-gray-300 rounded relative z-50 overflow-visible"
             dateFormat="dd/MM/yyyy"
             selected={editDueDate}
             onChange={(date: Date | null) => setEditDueDate(date)}  
             minDate={new Date()}
+            popperProps={{
+              positionFixed: true // use this to make the popper position: fixed
+            }}
+            portalId="root-portal"
           />
           <button onClick={handleSave} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">
             Save
@@ -85,7 +89,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleDone, editTodo, removeT
           )}
         </div>
         <div>
-          <button onClick={() => setIsEditing(true)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded ml-2 mr-2">
+          <button onClick={() => setIsEditing(true)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded ml-2 mr-2 -z-50">
             Edit
           </button>
           <button onClick={() => removeTodo(todo.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
