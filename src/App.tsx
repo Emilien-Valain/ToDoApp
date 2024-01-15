@@ -155,14 +155,16 @@ function App() {
       />
       <TasksOTD finishedTodos={finishedTodos} />
 
+      <div className="flex flex-col md:flex-row">
       <input
       type="email"
       value={email}
       onChange={(e) => setEmail(e.target.value)}
       placeholder="Enter your email"
-      className="input-class flex-1 border border-gray-300 p-2 rounded-l"
+      className="input-class border border-gray-300 p-2 rounded-md mr-2"
       />
-      <button onClick={addEmail} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-r">Add Email</button>
+      <button onClick={addEmail} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md">Add Email</button>
+      </div>
     </div>
   );
 }
